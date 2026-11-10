@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101218">
+<title>FIRSTUZ — fikrlar maydoni</title>
+<style>
+:root{--bg:#0d0f14;--panel:#151922;--panel2:#1b202b;--line:#292f3b;--text:#f2f4f8;--muted:#929bab;--accent:#7c6cff;--green:#4bd49a;--red:#ff727f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}
+.topbar{height:66px;border-bottom:1px solid var(--line);background:#10131a;display:flex;align-items:center;gap:18px;padding:0 max(15px,calc((100% - 1160px)/2));position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:9px;font-size:21px;font-weight:850;white-space:nowrap}.mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#8a7bff,#5140d4);display:grid;place-items:center}
+.search{flex:1;max-width:510px;position:relative}.search input{width:100%;height:41px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:0 13px 0 38px;color:var(--text);outline:none}.search span{position:absolute;left:13px;top:7px;color:var(--muted);font-size:20px}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:9px 13px;font-weight:650}.primary{background:var(--accent);border-color:var(--accent);color:white}.avatar{width:35px;height:35px;border-radius:50%;background:#302b55;color:#c9c2ff;display:grid;place-items:center;font-weight:800}
+.layout{max-width:1160px;margin:27px auto;padding:0 18px;display:grid;grid-template-columns:205px minmax(0,650px) 245px;gap:22px}.sidebar,.rightcol{position:sticky;top:90px;height:max-content}
+.navbox,.sidebox{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:11px}.navitem{width:100%;display:flex;gap:11px;align-items:center;padding:11px;border:0;border-radius:10px;background:transparent;color:var(--muted);text-align:left;font-weight:650}.navitem.active,.navitem:hover{background:#24233a;color:#c8c1ff}.navitem span{font-size:18px;width:22px;text-align:center}
+.side-title{font-size:11px;letter-spacing:1px;color:var(--muted);font-weight:800;margin:19px 9px 8px;text-transform:uppercase}.community{display:block;padding:9px 10px;color:#c7ccd6;text-decoration:none;border-radius:9px;font-size:14px}.community:hover{background:var(--panel2)}
+.mainhead{display:flex;justify-content:space-between;align-items:center;margin:0 2px 16px}.mainhead h1{font-size:23px;margin:0}.sub{color:var(--muted);font-size:13px}.sorts{display:flex;gap:6px}.sort{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:7px 10px;font-size:13px}.sort.active{background:var(--panel2);color:var(--text)}
+.createbar{display:flex;gap:9px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px;margin-bottom:14px}.fakeinput{flex:1;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:10px}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;display:grid;grid-template-columns:40px 1fr;gap:12px}.vote{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--panel2);border-radius:11px;padding:7px 3px;height:max-content}.vote button{border:0;background:transparent;color:var(--muted);font-size:17px;padding:0 5px}.vote button:disabled{opacity:.45;cursor:not-allowed}.vote strong{font-size:12px}.postmeta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:12px}.pill{color:#bcb4ff;background:#282541;padding:3px 8px;border-radius:20px;font-weight:700}.post h2{font-size:18px;line-height:1.35;margin:9px 0 7px}.postbody{color:#c0c6d1;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}.action{background:transparent;border:0;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:12px;font-weight:650}.action:hover,.action.saved{background:var(--panel2);color:#c9c2ff}
+.sidebox{padding:16px;margin-bottom:13px}.sidebox h3{font-size:15px;margin:0 0 9px}.sidebox p{color:var(--muted);font-size:13px;margin:0 0 11px}.trend{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.trend:last-child{border:0}.empty{padding:35px 18px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:15px}
+.modalback{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:16px;z-index:20}.modalback.show{display:flex}.modal{width:min(540px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.modal h2{font-size:20px;margin:0}.close{border:0;background:var(--panel2);border-radius:9px;width:34px;height:34px;font-size:20px;color:var(--muted)}.field{display:block;margin:12px 0}.field span{display:block;color:#c8ced8;font-size:13px;font-weight:650;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;background:#10141c;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px;outline:none}.field textarea{min-height:115px;resize:vertical}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#252b38;border:1px solid #424b5c;padding:10px 15px;border-radius:10px;display:none;z-index:30;font-size:13px;max-width:90%;text-align:center}.toast.show{display:block}.status{font-size:12px;color:var(--muted);margin-top:8px}.mobile-nav{display:none}
+@media(max-width:980px){.layout{grid-template-columns:185px minmax(0,1fr)}.rightcol{display:none}}
+@media(max-width:660px){.topbar{height:59px;padding:0 11px;gap:9px}.brand{font-size:18px}.mark{width:30px;height:30px}.search{max-width:none}.top-actions .btn{display:none}.layout{display:block;margin:17px auto;padding:0 11px}.sidebar{display:none}.post{padding:12px;grid-template-columns:34px 1fr;gap:9px}.post h2{font-size:16px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#11151d;border-top:1px solid var(--line);z-index:10;justify-content:space-around;padding:7px 2px calc(7px + env(safe-area-inset-bottom))}.mobile-nav button{background:transparent;border:0;color:var(--muted);font-size:10px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:52px}.mobile-nav b{font-size:18px;font-weight:500}.mobile-nav .active{color:#c8c1ff}.layout{padding-bottom:75px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="brand"><div class="mark">F</div> FIRSTUZ</div>
+ <div class="search"><span>⌕</span><input id="search" placeholder="Postlarni qidirish..."></div>
+ <div class="top-actions"><button class="btn" id="loginBtn">Kirish</button><button class="btn primary" id="signupBtn">Ro‘yxatdan o‘tish</button><button class="btn" id="logoutBtn" hidden>Chiqish</button><div class="avatar" id="userAvatar">F</div></div>
+</header>
+<div class="layout">
+ <aside class="sidebar">
+  <div class="navbox">
+   <button class="navitem active" data-page="home"><span>⌂</span>Bosh sahifa</button>
+   <button class="navitem" data-page="communities"><span>◉</span>Hamjamiyatlar</button>
+   <button class="navitem" data-page="saved"><span>▣</span>Saqlanganlar</button>
+   <button class="navitem" data-page="profile"><span>♙</span>Profilim</button>
+  </div>
+  <div class="side-title">Hamjamiyatlar</div>
+  <div class="navbox" style="padding:7px"><a class="community" href="#" data-community="texnologiya">💻 texnologiya</a><a class="community" href="#" data-community="talim">📚 talim</a><a class="community" href="#" data-community="munozara">💬 munozara</a><a class="community" href="#" data-community="gaming">🎮 gaming</a></div>
+ </aside>
+ <main>
+  <div class="mainhead"><div><h1 id="pageTitle">Bosh sahifa</h1><div class="sub" id="pageSub">Odamlar nimalar haqida gaplashmoqda?</div></div><div class="sorts"><button class="sort active" data-sort="new">Yangi</button><button class="sort" data-sort="top">Top</button></div></div>
+  <div class="createbar"><div class="avatar">F</div><button class="fakeinput" id="openCreate">Nima haqida fikr bildirmoqchisiz?</button><button class="btn primary" id="createPlus">＋</button></div>
+  <section id="feed"><div class="empty">Yuklanmoqda...</div></section>
+  <div class="status" id="dbStatus">Supabase bilan bog‘lanmoqda...</div>
+ </main>
+ <aside class="rightcol">
+  <div class="sidebox"><h3>FIRSTUZ haqida</h3><p>Qiziqarli mavzular, foydali fikrlar va samimiy munozaralar uchun ochiq maydon.</p><button class="btn primary" style="width:100%" id="rightCreate">Post yaratish</button></div>
+  <div class="sidebox"><h3>🔥 Ommabop mavzular</h3><div class="trend"># Ta’lim</div><div class="trend"># Texnologiya</div><div class="trend"># Dasturlash</div><div class="trend"># Kitoblar</div></div>
+  <div class="sidebox"><h3>Hamjamiyat qoidalari</h3><p>Hurmat bilan munosabatda bo‘ling. Spam va haqoratli izohlarga yo‘l qo‘yilmaydi.</p></div>
+ </aside>
+</div>
+<nav class="mobile-nav"><button class="active" data-page="home"><b>⌂</b>Bosh sahifa</button><button data-page="communities"><b>◉</b>Hamjamiyat</button><button id="mobileCreate"><b>＋</b>Yaratish</button><button data-page="saved"><b>▣</b>Saqlangan</button><button data-page="profile"><b>♙</b>Profil</button></nav>
+
+<div class="modalback" id="createModal"><div class="modal">
+ <div class="modalhead"><h2>Yangi post</h2><button class="close" data-close="createModal">×</button></div>
+ <label class="field"><span>Hamjamiyat</span><select id="postCommunity"><option value="munozara">munozara</option><option value="talim">talim</option><option value="texnologiya">texnologiya</option><option value="gaming">gaming</option></select></label>
+ <label class="field"><span>Sarlavha</span><input id="postTitle" maxlength="120" placeholder="Post sarlavhasini yozing"></label>
+ <label class="field"><span>Matn</span><textarea id="postBody" maxlength="3000" placeholder="Fikringizni batafsil yozing..."></textarea></label>
+ <div class="modalfoot"><button class="btn" data-close="createModal">Bekor qilish</button><button class="btn primary" id="publishBtn">E’lon qilish</button></div>
+</div></div>
+<div class="modalback" id="authModal"><div class="modal">
+ <div class="modalhead"><h2 id="authTitle">FIRSTUZ hisobiga kirish</h2><button class="close" data-close="authModal">×</button></div>
+ <label class="field"><span>Email</span><input type="email" id="authEmail" autocomplete="email" placeholder="email@example.com"></label>
+ <label class="field"><span>Parol</span><input type="password" id="authPassword" autocomplete="current-password" placeholder="Kamida 6 belgi"></label>
+ <div class="sub" id="authHint">Email manzilingiz va parolingizdan foydalaning.</div>
+ <div class="modalfoot"><button class="btn" data-close="authModal">Yopish</button><button class="btn primary" id="authSubmit">Kirish</button></div>
+</div></div>
+<div class="modalback" id="commentsModal"><div class="modal">
+ <div class="modalhead"><h2>Izohlar</h2><button class="close" data-close="commentsModal">×</button></div>
+ <div id="commentsList"></div>
+ <label class="field"><span>Izoh yozish</span><textarea id="commentText" style="min-height:75px" placeholder="Fikringizni yozing..."></textarea></label>
+ <div class="modalfoot"><button class="btn primary" id="sendComment">Izoh qoldirish</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://pphjnddmiulpkupkxnri.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_iTUEnvKH2AbRRONSjlzEUQ_7_PHa31K';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const $=id=>document.getElementById(id);
+const communityNames={texnologiya:'texnologiya',talim:'talim',munozara:'munozara',gaming:'gaming'};
+let user=null,posts=[],currentPage='home',sortMode='new',activeCommentId=null,authMode='login',myVotes={},savedIds=new Set();
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),3000)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function openModal(id){$(id).classList.add('show')}function closeModal(id){$(id).classList.remove('show')}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+document.querySelectorAll('.modalback').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+function setAuthUI(){const signed=!!user;$('loginBtn').hidden=signed;$('signupBtn').hidden=signed;$('logoutBtn').hidden=!signed;$('userAvatar').textContent=signed?(user.email?.[0]||'U').toUpperCase():'F';}
+async function ensureProfile(){
+ if(!user)return;
+ const raw=(user.email||'foydalanuvchi').split('@')[0].toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,18)||'foydalanuvchi';
+ const username=raw+'_'+user.id.slice(0,5);
+ const {error}=await supabaseClient.from('profiles').upsert({id:user.id,username,display_name:raw},{onConflict:'id',ignoreDuplicates:true});
+ if(error)console.warn('Profile:',error.message);
+}
+async function loadData(){
+ $('dbStatus').textContent='Ma’lumotlar yuklanmoqda...';
+ const {data:rows,error}=await supabaseClient.from('posts').select('id,community_id,author_id,title,body,created_at').order('created_at',{ascending:false}).limit(100);
+ if(error){$('dbStatus').textContent='Bazadan postlarni olishda xatolik: '+error.message;posts=[];render();return}
+ const ids=rows.map(x=>x.id),authorIds=[...new Set(rows.map(x=>x.author_id))];
+ let profiles={},votes=[],comments=[],saved=[];
+ if(authorIds.length){const r=await supabaseClient.from('profiles').select('id,username,display_name').in('id',authorIds);(r.data||[]).forEach(p=>profiles[p.id]=p)}
+ if(ids.length){const [v,c]=await Promise.all([supabaseClient.from('votes').select('post_id,user_id,vote').in('post_id',ids),supabaseClient.from('comments').select('id,post_id').in('post_id',ids)]);votes=v.data||[];comments=c.data||[]}
+ if(user){const s=await supabaseClient.from('saved_posts').select('post_id').eq('user_id',user.id);saved=(s.data||[]).map(x=>x.post_id)}
+ myVotes={};votes.filter(v=>v.user_id===user?.id).forEach(v=>myVotes[v.post_id]=v.vote);savedIds=new Set(saved);
+ posts=rows.map(p=>{const author=profiles[p.author_id];return {...p,author:author?.username||'foydalanuvchi',community:'munozara',time:relativeTime(p.created_at),votes:votes.filter(v=>v.post_id===p.id).reduce((a,v)=>a+v.vote,0),commentCount:comments.filter(c=>c.post_id===p.id).length,mine:p.author_id===user?.id,saved:savedIds.has(p.id)}})
+ $('dbStatus').textContent='Supabase bilan ulangan';
+ render();
+}
+function relativeTime(date){const mins=Math.max(0,Math.floor((Date.now()-new Date(date).getTime())/60000));if(mins<1)return'hozir';if(mins<60)return mins+' daqiqa oldin';const h=Math.floor(mins/60);if(h<24)return h+' soat oldin';return Math.floor(h/24)+' kun oldin'}
+function render(){
+ let list=[...posts],q=$('search').value.trim().toLowerCase();
+ if(currentPage==='saved')list=list.filter(p=>savedIds.has(p.id));
+ if(currentPage==='profile')list=list.filter(p=>p.mine);
+ if(q)list=list.filter(p=>(p.title+' '+p.body+' '+p.author).toLowerCase().includes(q));
+ if(sortMode==='top')list.sort((a,b)=>b.votes-a.votes);
+ $('feed').innerHTML='';
+ if(!list.length){$('feed').innerHTML='<div class="empty"><div style="font-size:28px">✦</div><b>Hozircha post yo‘q</b><div class="sub" style="margin-top:5px">Birinchi postni siz yarating.</div></div>';return}
+ list.forEach(p=>{
+  const el=document.createElement('article');el.className='post';
+  const vote=myVotes[p.id]||0;
+  el.innerHTML=`<div class="vote"><button class="up" title="Yuqori ovoz" ${!user?'disabled':''} style="color:${vote===1?'var(--green)':''}">▲</button><strong>${p.votes}</strong><button class="down" title="Past ovoz" ${!user?'disabled':''} style="color:${vote===-1?'var(--red)':''}">▼</button></div><div><div class="postmeta"><span class="pill">r/munozara</span><span>•</span><span>u/${esc(p.author)}</span><span>•</span><span>${esc(p.time)}</span></div><h2>${esc(p.title)}</h2><div class="postbody">${esc(p.body)}</div><div class="actions"><button class="action comments">▤ ${p.commentCount||0} izoh</button><button class="action save ${savedIds.has(p.id)?'saved':''}">${savedIds.has(p.id)?'▣ Saqlandi':'▢ Saqlash'}</button><button class="action share">↗ Ulashish</button></div></div>`;
+  el.querySelector('.up').onclick=()=>votePost(p.id,1);el.querySelector('.down').onclick=()=>votePost(p.id,-1);
+  el.querySelector('.save').onclick=()=>savePost(p.id);
+  el.querySelector('.comments').onclick=()=>openComments(p.id);
+  el.querySelector('.share').onclick=()=>{if(navigator.clipboard?.writeText)navigator.clipboard.writeText(p.title).then(()=>toast('Post sarlavhasi nusxalandi')).catch(()=>toast('Nusxalash imkoni bo‘lmadi'));else toast('Brauzer nusxalashni qo‘llamayapti')};
+  $('feed').appendChild(el);
+ });
+}
+async function requireLogin(){if(user)return true;toast('Davom etish uchun avval tizimga kiring');showAuth('login');return false}
+async function votePost(postId,value){if(!await requireLogin())return;const old=myVotes[postId]||0;let error;if(old===value){({error}=await supabaseClient.from('votes').delete().eq('post_id',postId).eq('user_id',user.id));}else{({error}=await supabaseClient.from('votes').upsert({post_id:postId,user_id:user.id,vote:value},{onConflict:'post_id,user_id'}));}if(error){toast('Ovoz saqlanmadi: '+error.message);return}await loadData()}
+async function savePost(postId){if(!await requireLogin())return;let result;if(savedIds.has(postId))result=await supabaseClient.from('saved_posts').delete().eq('post_id',postId).eq('user_id',user.id);else result=await supabaseClient.from('saved_posts').insert({post_id:postId,user_id:user.id});if(result.error){toast('Saqlashda xatolik: '+result.error.message);return}await loadData();toast(savedIds.has(postId)?'Post saqlandi':'Post saqlanganlardan olindi')}
+function showAuth(mode){authMode=mode;$('authTitle').textContent=mode==='login'?'FIRSTUZ hisobiga kirish':'FIRSTUZ’da ro‘yxatdan o‘tish';$('authSubmit').textContent=mode==='login'?'Kirish':'Hisob yaratish';$('authHint').textContent=mode==='signup'?'Emailingizga tasdiqlash xabari yuborilishi mumkin.':'Email va parolingizni kiriting.';openModal('authModal')}
+$('loginBtn').onclick=()=>showAuth('login');$('signupBtn').onclick=()=>showAuth('signup');
+$('authSubmit').onclick=async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<6){toast('Email kiriting va parol kamida 6 belgidan iborat bo‘lsin');return}$('authSubmit').disabled=true;let result;if(authMode==='signup')result=await supabaseClient.auth.signUp({email,password});else result=await supabaseClient.auth.signInWithPassword({email,password});$('authSubmit').disabled=false;if(result.error){toast(result.error.message);return}if(authMode==='signup'&&!result.data.session){closeModal('authModal');toast('Emailingizni tasdiqlang, keyin FIRSTUZ’ga kiring.');return}user=result.data.user;await ensureProfile();setAuthUI();closeModal('authModal');await loadData();toast(authMode==='signup'?'Hisob yaratildi!':'Tizimga kirdingiz!')};
+$('logoutBtn').onclick=async()=>{const {error}=await supabaseClient.auth.signOut();if(error){toast(error.message);return}user=null;myVotes={};savedIds=new Set();setAuthUI();await loadData();toast('Hisobdan chiqdingiz')};
+function createOpen(){if(!requireLogin())return;openModal('createModal')}
+['openCreate','createPlus','rightCreate','mobileCreate'].forEach(id=>$(id).onclick=createOpen);
+$('publishBtn').onclick=async()=>{if(!await requireLogin())return;const title=$('postTitle').value.trim(),body=$('postBody').value.trim();if(!title){toast('Sarlavha yozing');return}$('publishBtn').disabled=true;const {error}=await supabaseClient.from('posts').insert({author_id:user.id,title,body,community_id:null});$('publishBtn').disabled=false;if(error){toast('Post joylanmadi: '+error.message);return}$('postTitle').value='';$('postBody').value='';closeModal('createModal');setPage('home');await loadData();toast('Post e’lon qilindi!')};
+async function openComments(id){if(!await requireLogin())return;activeCommentId=id;await refreshComments();openModal('commentsModal')}
+async function refreshComments(){const {data,error}=await supabaseClient.from('comments').select('id,author_id,body,created_at').eq('post_id',activeCommentId).order('created_at');if(error){$('commentsList').textContent='Izohlarni yuklab bo‘lmadi: '+error.message;return}const ids=[...new Set((data||[]).map(c=>c.author_id))];let names={};if(ids.length){const r=await supabaseClient.from('profiles').select('id,username').in('id',ids);(r.data||[]).forEach(p=>names[p.id]=p.username)}$('commentsList').innerHTML=(data||[]).length?data.map(c=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><div class="sub">u/${esc(names[c.author_id]||'foydalanuvchi')}</div><div>${esc(c.body)}</div></div>`).join(''):'<p class="sub">Hozircha izohlar yo‘q.</p>'}
+$('sendComment').onclick=async()=>{if(!await requireLogin())return;const body=$('commentText').value.trim();if(!body)return;const {error}=await supabaseClient.from('comments').insert({post_id:activeCommentId,author_id:user.id,body});if(error){toast('Izoh yuborilmadi: '+error.message);return}$('commentText').value='';await refreshComments();await loadData();toast('Izoh qo‘shildi')};
+function setPage(page){currentPage=page;document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const t={home:['Bosh sahifa','Odamlar nimalar haqida gaplashmoqda?'],communities:['Hamjamiyatlar','Hamjamiyatlar tez orada kengaytiriladi.'],saved:['Saqlanganlar','Saqlagan postlaringiz.'],profile:['Profilim','Siz yaratgan postlar.']};$('pageTitle').textContent=t[page][0];$('pageSub').textContent=t[page][1];render()}
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>setPage(b.dataset.page));
+document.querySelectorAll('[data-sort]').forEach(b=>b.onclick=()=>{sortMode=b.dataset.sort;document.querySelectorAll('[data-sort]').forEach(x=>x.classList.toggle('active',x===b));render()});
+document.querySelectorAll('[data-community]').forEach(a=>a.onclick=e=>{e.preventDefault();$('search').value=a.dataset.community;setPage('home');render()});
+$('search').oninput=render;
+(async()=>{const {data}=await supabaseClient.auth.getSession();user=data.session?.user||null;setAuthUI();if(user)await ensureProfile();await loadData();supabaseClient.auth.onAuthStateChange((_event,session)=>{user=session?.user||null;setAuthUI();if(user)ensureProfile().then(loadData);else loadData()})})();
+</script>
+</body>
+</html>
